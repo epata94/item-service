@@ -13,7 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+// 현재 컨트롤러의 BASE URL을 적용하고 향후 @GetMapping에 적용됨
 @RequestMapping("/basic/items")
+// 모든 final로 정의한 사용자 정의 클래스 필드의 생성자를 자동으로 생성하는 용도로 사용
 @RequiredArgsConstructor
 public class BasicItemController {
     private final ItemRepository itemRepository;
@@ -27,6 +29,7 @@ public class BasicItemController {
         return "basic/items";
     }
 
+// itemId는 request parameter의 itemId의 값으로 치환
     @GetMapping("/{itemId}")
     public String item(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
