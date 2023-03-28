@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
+<!--
+URL 링크 표현식 - @{...},
+@{...} : 타임리프는 URL 링크를 사용하는 경우 @{...} 를 사용한다. 이것을 URL 링크 표현식이라 한다.
+-->
   <link href="../css/bootstrap.min.css"
         th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
   <style>
@@ -16,6 +20,11 @@ max-width: 560px;
     <h2>상품 등록 폼</h2>
   </div>
   <h4 class="mb-3">상품 입력</h4>
+<!--  form을 열때에는 GET, 데이터를 전송할 때에는 post로 동작
+    action의 값이 없기 때문에 아래와 같이 치환된다.
+    <form action="" th:action method="post"> <= GET 방식으로 조회
+    값이 없는 상황에서 전송을 하게 된다면 현재 URL(http://localhost:8080/basic/items/add)을 사용하게 된다.
+-->
   <form action="item.html" th:action method="post">
     <div>
       <label for="itemName">상품명</label>
@@ -39,6 +48,10 @@ max-width: 560px;
           등록</button>
       </div>
       <div class="col">
+<!--  th:onclick="|location.href='@{/basic/items}'|"
+  경로에 있는 특수 문자를 자연스럽게 표현하기 위한 문법. 사용하지 않는다면 아래와 같이 복잡하게 지정을 해야한다.
+  th:onclick="'location.href=' + '\'' + @{/basic/items/add} + '\''"
+-->
         <button class="w-100 btn btn-secondary btn-lg"
                 onclick="location.href='items.html'"
                 th:onclick="|location.href='@{/basic/items}'|"
