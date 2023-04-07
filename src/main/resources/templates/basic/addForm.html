@@ -21,9 +21,13 @@ max-width: 560px;
   </div>
   <h4 class="mb-3">상품 입력</h4>
 <!--  form을 열때에는 GET, 데이터를 전송할 때에는 post로 동작
+	<form action="item.html" th:action="/basic/items/add" method="post">
+	로 하는 것이 명확하게 해당 컨트롤러를 호출하지만 생략을 할 수 있다. 
+	생략을 하게 된다면 현재 URL에 데이터를 넘긴다.
+	
     action의 값이 없기 때문에 아래와 같이 치환된다.
     <form action="" th:action method="post"> <= GET 방식으로 조회
-    값이 없는 상황에서 전송을 하게 된다면 현재 URL(http://localhost:8080/basic/items/add)을 사용하게 된다.
+    값이 없는 상황에서 전송을 하게 된다면 현재 URL(http://localhost:8080/basic/items/add)에 값을 넘긴다.
 -->
   <form action="item.html" th:action method="post">
     <div>
