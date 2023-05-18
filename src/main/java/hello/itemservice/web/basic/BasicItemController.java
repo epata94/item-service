@@ -68,6 +68,10 @@ public class BasicItemController {
 @ModelAttribute - 요청 파라미터 처리
 @ModelAttribute 는 Item 객체를 생성하고, 요청 파라미터의 값을 프로퍼티 접근법(setXxx)으로
 입력해준다.
+사용자 입력한 데이터를 처리하는 Form 클래스를 사용하지 않고 도메인 클래스를 사용하여 간단히 처리
+Form 클래스는 전통적으로 복잡한 필드의 유효성 검사와 데이터 전처리를 위한 로직을 처리하기 위한 용도로 사용한다.
+하지만 입력이 간단하고 추후에 배울 빈검증 어노테이션을 활용하여 도메인클래스를 활용하여 처리할 수 있다.
+이렇게 처리시 별도의 Form 클래스를 사용하는 것 보다 코드가 더 간결해 진다.
  */
     public String addItemV2(@ModelAttribute("item") Item item, Model model) {
         itemRepository.save(item);
@@ -94,8 +98,9 @@ public class BasicItemController {
     /**
      * PRG - Post/Redirect/Get
      * 새로 고침 오작동을 방지하기 위한 연결 방식
+     * Version4에서 새로고침을 하게 되면 이전 Post 작업을 반복하게 된다.
      */
-//    @PostMapping("/add")
+    @PostMapping("/add")
     public String addItemV5(Item item) {
         itemRepository.save(item);
         return "redirect:/basic/items/" + item.getId();
@@ -105,12 +110,13 @@ public class BasicItemController {
      * RedirectAttributes
      * redirect되었을 때 속성을 addAttribute함수를 통해 저장
      */
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-//        return "redirect:/basic/items/" + item.getId();
+
+//        return "/basic/items/" + item.getId();
         return "redirect:/basic/items/{itemId}";
     }
 
@@ -124,6 +130,7 @@ public class BasicItemController {
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
         itemRepository.update(itemId, item);
+//        return "/basic/items/{itemId}";
         return "redirect:/basic/items/{itemId}";
     }
 
