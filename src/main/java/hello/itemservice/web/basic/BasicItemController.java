@@ -15,7 +15,9 @@ import java.util.List;
 @Controller
 // 현재 컨트롤러의 BASE PATH를 적용하고 향후 @GetMapping에 적용됨
 @RequestMapping("/basic/items")
+
 // 모든 final로 정의한 사용자 정의 클래스 필드의 생성자를 자동으로 생성하는 용도로 사용
+// 따라서 아래 ItemRepository itemRepository에서 final을 생략하면 않된다.
 @RequiredArgsConstructor
 public class BasicItemController {
     private final ItemRepository itemRepository;

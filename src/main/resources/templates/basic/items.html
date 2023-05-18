@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
+<!-- css 경로 설정
+ URL 링크 표현식: @{...} => URL의 Escape 문자를 문자 그대로 표현하게 해준다.
+-->
   <link href="../css/bootstrap.min.css"
         th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
@@ -12,6 +15,20 @@
   </div>
   <div class="row">
     <div class="col">
+<!--
+리터럴 대체 - |...|
+|...| :이렇게 사용한다.
+타임리프에서 문자와 표현식 등은 분리되어 있기 때문에 더해서 사용해야 한다.
+<span th:text="'Welcome to our application, ' + ${user.name} + '!'">
+다음과 같이 리터럴 대체 문법을 사용하면, 더하기 없이 편리하게 사용할 수 있다.
+<span th:text="|Welcome to our application, ${user.name}!|">
+결과를 다음과 같이 만들어야 하는데
+location.href='/basic/items/add'
+그냥 사용하면 문자와 표현식을 각각 따로 더해서 사용해야 하므로 다음과 같이 복잡해진다.
+th:onclick="'location.href=' + '\'' + @{/basic/items/add} + '\''"
+리터럴 대체 문법을 사용하면 다음과 같이 편리하게 사용할 수 있다.
+th:onclick="|location.href='@{/basic/items/add}'|"
+-->
       <button class="btn btn-primary float-end"
               onclick="location.href='addForm.html'"
               th:onclick="|location.href='@{/basic/items/add}'|"
