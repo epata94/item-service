@@ -97,13 +97,16 @@ Form 클래스는 전통적으로 복잡한 필드의 유효성 검사와 데이
 
     /**
      * PRG - Post/Redirect/Get
-     * 새로 고침 오작동을 방지하기 위한 연결 방식
+     * 등록 후 새로 고침 오작동을 방지하기 위한 연결 방식
      * Version4에서 새로고침을 하게 되면 이전 Post 작업을 반복하게 된다.
      */
     @PostMapping("/add")
     public String addItemV5(Item item) {
         itemRepository.save(item);
+        // redirect는 html 요청을 재처리
         return "redirect:/basic/items/" + item.getId();
+//        아래 요청은 성립되지 않는다. View template 호출인데 해당 html(id가 있는)이 없기 때문이다.
+//        return "/basic/items/" + item.getId();
     }
 
     /**
