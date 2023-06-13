@@ -133,7 +133,7 @@ Form 클래스는 전통적으로 복잡한 필드의 유효성 검사와 데이
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
         itemRepository.update(itemId, item);
-//        return "/basic/items/{itemId}";
+
         return "redirect:/basic/items/{itemId}";
     }
 
